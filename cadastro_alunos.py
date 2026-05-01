@@ -62,14 +62,24 @@ while True:
  "notas": notas,
  "situacao": classificar(notas)
  }
-#add o dicionario "aluno" na ultima posicao da lista.
- alunos.append(aluno)
-#variavel "continuar" pergunta ao usuario se ele quer cadastrar um novo aluno, ".lower()" deixa a resposta do usuario em minusculo
- continuar = input("Quer cadastrar um novo aluno? (s/n:) ").lower()
- # se o usuário NÃO digitar "s", o cadastro é encerrado
- if continuar != "s":
-  if continuar.strip =="":
-   break
+sair = False # variável começa falsa, usada para controlar encerramento do cadastro
+alunos.append(aluno)  # adiciona dicionário dentro da lista alunos
+
+while True:# inicia laço para validar a resposta do usuário
+        continuar = input("Deseja cadastrar outro aluno? (s/n): ").strip().lower()# pede resposta, remove espaços e converte para minúsculo
+
+        if continuar in ["s", "sim"]:# verifica se usuário deseja continuar cadastrando
+            break  # sai do laço da resposta
+
+        elif continuar in ["n", "nao", "não"]: # verifica se usuário deseja encerrar cadastro
+            sair = True # altera variável para indicar saída do programa
+            break # sai do laço da pergunta
+
+        else: # caso digite algo diferente das opções válidas
+            print("Digite apenas S/N, Sim ou Não.")# exibe mensagem de erro
+
+        if sair: # verifica se usuário escolheu encerrar
+         break # encerra o laço principal do cadastro
 
 #cabecalho
 print("\n ===Lista de alunos===\n")
