@@ -20,9 +20,9 @@ while True:
   #strip apaga os espaços em branco e se estiver vazio, pede para que o usuario digite novamente seu nome
   if nome.strip() =="":
     print("Nome não pode ficar vazio")
-#for char percorre caracter por caracter, isdigit verifica se tem numero e devolve T ou F, "any" identifica se há pelo menos 1 T se sim printa a msg p usuario
-  elif any(char.isdigit() for char in nome):
-    print("Não são permitidos números")
+#for char percorre caracter por caracter, isalpha aceita somente letras(A-Z),.replace(" ","") permite espaço, not entra no erro se tiver algo errado
+  elif not nome.replace(" ","").isalpha():
+    print("Digite apenas letras(sem números ou símbolos)")
   else:
     break
 #while cria o loop e o true deixa sempre verdadeiro 
@@ -68,7 +68,8 @@ while True:
  continuar = input("Quer cadastrar um novo aluno? (s/n:) ").lower()
  # se o usuário NÃO digitar "s", o cadastro é encerrado
  if continuar != "s":
-  break
+  if continuar.strip =="":
+   break
 
 #cabecalho
 print("\n ===Lista de alunos===\n")
