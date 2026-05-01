@@ -120,5 +120,3 @@ for aluno in alunos:
 print("Maior nota: ",maior_nota["nome"], "=", maior_nota["notas"])
 #mostra o aluno com menor nota
 print("Menor nota: ",menor_nota["nome"], "=", menor_nota["notas"])
-#quebra de linha
-print("\n")
