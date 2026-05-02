@@ -20,7 +20,7 @@ while True:
   #strip apaga os espaços em branco e se estiver vazio, pede para que o usuario digite novamente seu nome
   if nome.strip() =="":
     print("Nome não pode ficar vazio")
-#for char percorre caracter por caracter, isalpha aceita somente letras(A-Z),.replace(" ","") permite espaço, not entra no erro se tiver algo errado
+#isalpha aceita somente letras(A-Z),.replace(" ","") permite espaço, not entra no erro se tiver algo errado
   elif not nome.replace(" ","").isalpha():
     print("Digite apenas letras(sem números ou símbolos)")
   else:
