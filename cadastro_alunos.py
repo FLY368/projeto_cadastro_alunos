@@ -1,132 +1,120 @@
-#essa função classifica se o aluno foi aprovado, reprovado ou se ele está de recuperação.
+# Função que classifica o aluno de acordo com a nota
 def classificar(notas):
-  if notas >= 7:
-    return("aprovado")
-  elif notas >= 5:
-    return("recuperação")
-  else: 
-    return("reprovado")
-#essa função faz a média dos alunos cadastrados.
+    if notas >= 7:
+        return "aprovado"
+    elif notas >= 5:
+        return "recuperação"
+    else:
+        return "reprovado"
+
+# Função que calcula a média das notas da turma
 def media_alunos(alunos):
-   notas = [aluno["notas"]for aluno in alunos]
-   return sum(notas) / len(notas)
-#lista alunos.
+    notas = [aluno["notas"] for aluno in alunos]  # pega todas as notas
+    return sum(notas) / len(notas)  # soma e divide pelo total de alunos
+
+# Lista que vai armazenar os alunos cadastrados
 alunos = []
-#while true deixa tudo verdadeiro para rodar o break
+
+# Loop principal de cadastro
 while True:
- while True:
-#pede o nome para o usuário
-  nome = input("digite o nome do aluno:")
-  #strip apaga os espaços em branco e se estiver vazio, pede para que o usuario digite novamente seu nome
-  if nome.strip() =="":
-    print("Nome não pode ficar vazio")
-#isalpha aceita somente letras(A-Z),.replace(" ","") permite espaço, not entra no erro se tiver algo errado
-  elif not nome.replace(" ","").isalpha():
-    print("Digite apenas letras(sem números ou símbolos)")
-  else:
-    break
-#while cria o loop e o true deixa sempre verdadeiro 
- while True: 
-#try tenta executar e se nao der certo vai pro except até o usuário digitar uma idade válida.
-    try:
-#variavel idade atrelada ao input q esta configurado para receber apenar numeros inteiros e o input esta printando para o usuário digitar a idade do próprio.
-        idade = int(input("digite a idade do aluno:"))
-#se idade for menor ou igual a zero, o console printa invalido.
-        if idade <= 0:
-           print("idade inválida, tente novamente")
-# se a idade for maior que 0, o loop é encerrado
-        else:
-           break
-      #se chegou aqui ele vai printar que deu erro e vai começar o loop dnv ate o usuario digitar corretamente,
-    except:
-        print("você digitou algo errado!")
-#while cria um loop e true deixa sempre verdadeiro
- while True:
-#try tenta executar e se n der certo vai pro except até o usuário digitar um nota válida.
-    try: 
-#notas aceitando apenas numeros entre 0-10
-        notas = float(input("digite a nota do aluno:"))
-# se a nota for menor que 0 ou maior que 10, mostra mensagem de erro e pede novamente
-        if notas < 0 or notas > 10:
-          print("nota inválida, digite a nota de 0-10")
-#se n vida que segue
+    # Cadastro do nome
+    while True:
+        nome = input("Digite o nome do aluno: ")#pede o nome para o usuario
+        if nome.strip() == "":  # impede de entrar espaços vazios
+            print("Nome não pode ficar vazio")
+        elif not nome.replace(" ", "").isalpha():  # impede números e símbolos
+            print("Digite apenas letras (sem números ou símbolos)")
         else:
             break
-#se entrar no except vai printar invalido e comecar o loop dnv
-    except:
-        print("você digitou uma nota inválida!")
-#dicionario "aluno" 
- aluno = {
- "nome": nome,
- "idade": idade,
- "notas": notas,
- "situacao": classificar(notas)
- }
-sair = False # variável começa falsa, usada para controlar encerramento do cadastro
-alunos.append(aluno)  # adiciona dicionário dentro da lista alunos
+    # Cadastro da idade
+    while True:
+    #try/except evita que o site quebre
+        try:
+            idade = int(input("Digite a idade do aluno: "))#pede a idade com numero int
+            if idade <= 0:  # idade inválida
+                print("Idade inválida, tente novamente")
+            else:
+                break
+        except:
+            print("Você digitou algo errado!")
 
-while True:# inicia laço para validar a resposta do usuário
-        continuar = input("Deseja cadastrar outro aluno? (s/n): ").strip().lower()# pede resposta, remove espaços e converte para minúsculo
+    # Cadastro da nota
+    while True:
+        try:
+            notas = float(input("Digite a nota do aluno: "))#pede um numero de 0-10
+            if notas < 0 or notas > 10:  #nota fora do intervalo
+                print("Nota inválida, digite a nota de 0-10")
+            else:
+                break
+        except:
+            print("Você digitou uma nota inválida!")
 
-        if continuar in ["s", "sim"]:# verifica se usuário deseja continuar cadastrando
-            break  # sai do laço da resposta
+    #Cria o dicionário do aluno
+    aluno = {
+        "nome": nome,
+        "idade": idade,
+        "notas": notas,
+        "situacao": classificar(notas)
+    }
 
-        elif continuar in ["n", "nao", "não"]: # verifica se usuário deseja encerrar cadastro
-            sair = True # altera variável para indicar saída do programa
-            break # sai do laço da pergunta
+    # Adiciona o aluno na ultima posicao da lista
+    alunos.append(aluno)
 
-        else: # caso digite algo diferente das opções válidas
-            print("Digite apenas S/N, Sim ou Não.")# exibe mensagem de erro
+    # Pergunta se deseja continuar cadastrando
+    while True:
+        continuar = input("Deseja cadastrar outro aluno? (s/n): ").strip().lower()
+        if continuar == "s":
+            break  # volta para cadastrar outro aluno
+        elif continuar == "n":
+            break  # sai do mini loop
+        else:
+            print("Digite apenas s ou n.")
 
-        if sair: # verifica se usuário escolheu encerrar
-         break # encerra o laço principal do cadastro
+    # Se o usuário digitou "n", encerra o loop principal
+    if continuar == "n":
+        break
 
-#cabecalho
-print("\n ===Lista de alunos===\n")
-#for percorrendo dict aluno dentro da list alunos, bem intuitivo.
+# Exibe lista de alunos cadastrados
+print("\n === Lista de alunos ===\n")
 for aluno in alunos:
-   print(f"nome: {aluno['nome']}")
-   print(f"idade: {aluno['idade']}")
-   print(f"notas: {aluno['notas']}")
-   print(f"situação: {aluno['situacao']}")
-   print("\n")
-   print("-" * 25)
-#cabecalho
-print("\n ===Média final da turma===\n")
-#mostra a media dos alunos, puxando a funçao da L10
-print (media_alunos(alunos))
-#cabecalho
-print("\n ===Relatório final===\n")
-#contadores para cada situação
+    print(f"Nome: {aluno['nome']}")
+    print(f"Idade: {aluno['idade']}")
+    print(f"Notas: {aluno['notas']}")
+    print(f"Situação: {aluno['situacao']}")
+    print("-" * 25)
+
+# Exibe média da turma
+print("\n === Média final da turma ===\n")
+print(media_alunos(alunos))
+
+# Relatório final de aprovados, recuperação e reprovados
+print("\n === Relatório final ===\n")
 aprovado = 0
-recuperacao = 0 
+recuperacao = 0
 reprovado = 0
-#percorre a lista de alunos e classifica cada um
+
 for aluno in alunos:
-  resultado = classificar(aluno["notas"])
-#add ao contador de acordo com a situação retornada
-  if resultado == "aprovado":
-    aprovado += 1
-  elif resultado == "recuperação":
-    recuperacao += 1
-  else:
-    reprovado += 1
-#mostra o resultado final
-print("aprovado: ", aprovado)
+    resultado = classificar(aluno["notas"])
+    if resultado == "aprovado":
+        aprovado += 1
+    elif resultado == "recuperação":
+        recuperacao += 1
+    else:
+        reprovado += 1
+
+print("Aprovados: ", aprovado)
 print("Em recuperação: ", recuperacao)
-print("reprovados: ", reprovado)
-#usei para pular uma linha 
-print("\n")
-#pega o primeiro aluno da lista como referencia da menor e maior nota
+print("Reprovados: ", reprovado)
+
+# Descobre maior e menor nota
 maior_nota = alunos[0]
 menor_nota = alunos[0]
-#percorre todos os alunos da lista
+
 for aluno in alunos:
-   if aluno["notas"] > maior_nota["notas"]:
-      maior_nota = aluno #atualiza o aluno com maior nota
-   if aluno["notas"] < menor_nota["notas"]:
-      menor_nota = aluno #atualiza o aluno com menor nota
-#mostra o aluno com maior nota
-print("Maior nota: ",maior_nota["nome"], "=", maior_nota["notas"])
-#mostra o aluno com menor nota
-print("Menor nota: ",menor_nota["nome"], "=", menor_nota["notas"])
+    if aluno["notas"] > maior_nota["notas"]:
+        maior_nota = aluno
+    if aluno["notas"] < menor_nota["notas"]:
+        menor_nota = aluno
+
+print("\nMaior nota: ", maior_nota["nome"], "=", maior_nota["notas"])
+print("Menor nota: ", menor_nota["nome"], "=", menor_nota["notas"])
